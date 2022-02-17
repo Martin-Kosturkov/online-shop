@@ -1,4 +1,4 @@
-package io.flacon.store;
+package io.falcon.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

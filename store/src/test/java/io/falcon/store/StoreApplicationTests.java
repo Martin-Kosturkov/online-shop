@@ -1,4 +1,4 @@
-package io.flacon.store;
+package io.falcon.store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
