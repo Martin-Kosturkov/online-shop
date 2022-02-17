@@ -1,5 +1,6 @@
 package io.falcon.store.entities;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,7 @@ import java.util.function.Predicate;
 @Entity
 @Table(name = "product")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Product {
 
     @Id
