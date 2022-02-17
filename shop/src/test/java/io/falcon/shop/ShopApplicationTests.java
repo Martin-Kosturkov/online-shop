@@ -1,10 +1,10 @@
-package io.falcon.onlineshop;
+package io.falcon.shop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OnlineShopApplicationTests {
+class ShopApplicationTests {
 
     @Test
     void contextLoads() {
