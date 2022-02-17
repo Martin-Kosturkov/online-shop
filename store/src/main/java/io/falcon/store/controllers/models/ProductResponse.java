@@ -10,7 +10,7 @@ public class ProductResponse {
     private final Integer quantity;
 
     public ProductResponse(Product product) {
-        this.name = product.getName();
-        this.quantity = product.getQuantity();
+        name = product.getName();
+        quantity = product.getQuantity();
     }
 }
