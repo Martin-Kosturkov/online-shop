@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/store
+    url: jdbc:postgresql://localhost:5433/shop
     username: postgres
     password: postgres
 
   flyway:
-    url: jdbc:postgresql://localhost:5433/store
+    url: jdbc:postgresql://localhost:5433/shop
     user: postgres
     password: postgres
     sql-migration-separator: _
