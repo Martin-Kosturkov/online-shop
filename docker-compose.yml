@@ -6,6 +6,15 @@ services:
         ports:
             - "5432:5432"
         environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-        - POSTGRES_DB=store
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=store
+    shop-db:
+        image: postgres:14-alpine
+        container_name: shop-db
+        ports:
+            - "5433:5432"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=shop
