@@ -23,7 +23,7 @@ public class ProductService {
     public List<Product> addProducts(List<Product> products) {
 
         List<Product> newAndUpdatedProducts = products.stream()
-                .map(product -> repository.findById(product.getName())
+                .map(product -> repository.findByNameIgnoreCase(product.getName())
                         .map(existingProduct -> existingProduct.addQuantity(product.getQuantity()))
                         .orElse(product))
                 .collect(Collectors.toList());
