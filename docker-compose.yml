@@ -35,3 +35,4 @@ services:
         environment:
             - ALLOW_PLAINTEXT_LISTENER=yes
             - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
+            - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
