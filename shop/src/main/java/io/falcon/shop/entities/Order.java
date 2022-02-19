@@ -54,8 +54,17 @@ public class Order {
         return id.toString();
     }
 
+    public List<Product> getProducts() {
+        return List.copyOf(products);
+    }
+
+    public void cancel() {
+        status = Status.CANCELLED;
+    }
+
     private enum Status {
         ACCEPTED,
-        COMPLETED
+        COMPLETED,
+        CANCELLED
     }
 }
