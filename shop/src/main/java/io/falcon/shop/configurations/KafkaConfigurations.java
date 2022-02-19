@@ -20,7 +20,7 @@ import java.util.Map;
 public class KafkaConfigurations {
     public static final String ORDERS_TOPIC = "orders";
 
-    @Value("${kafka.server:localhost:9092}")
+    @Value("${kafka.servers:localhost:9092}")
     private String kafkaServers;
 
     @Bean
