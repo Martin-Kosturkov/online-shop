@@ -11,3 +11,9 @@ spring:
     user: postgres
     password: postgres
     sql-migration-separator: _
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
