@@ -1,6 +1,7 @@
 package io.falcon.store.entities;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
@@ -24,6 +25,7 @@ import java.util.UUID;
 public class PendingOrder {
 
     @Id
+    @Getter
     private UUID id;
 
     @Column(name = "created_at", nullable = false)

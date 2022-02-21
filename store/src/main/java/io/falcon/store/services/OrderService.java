@@ -10,14 +10,17 @@ import io.falcon.store.events.ProductsLoadedEvent;
 import io.falcon.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +31,7 @@ public class OrderService {
     private final ProductService productService;
     private final ObjectMapper objectMapper;
     private final ApplicationEventPublisher eventPublisher;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @KafkaListener(topics = "orders")
     public void saveNewOrder(String event) {
@@ -80,10 +84,21 @@ public class OrderService {
         repository.delete(event.getOrder());
     }
 
+    @SneakyThrows(JsonProcessingException.class)
     @Async
     @EventListener
     public void sendResultToShop(CompleteOrderEvent event) {
+        var order = event.getOrder();
+        var bodyMap = Map.of(
+                "id", order.getId().toString(),
+                "status", "SUCCESS");
 
+        var bodyJsonString = objectMapper.writeValueAsString(bodyMap);
+
+        kafkaTemplate.send("order-result", bodyJsonString).completable()
+                .whenComplete((__, exception) -> {
+                    // TODO log exception cause if any
+                });
     }
 
     private List<OrderedProduct> mapProducts(List<ProductDto> products) {
