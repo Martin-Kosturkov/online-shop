@@ -1,0 +1,1 @@
+alter table customer_order rename column last_updated_at to created_at;

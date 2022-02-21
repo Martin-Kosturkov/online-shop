@@ -1,6 +1,7 @@
 package io.falcon.shop.entities;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
@@ -29,8 +30,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "last_updated_at", nullable = false)
-    private Instant lastUpdatedAt;
+    @Getter
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -46,7 +48,7 @@ public class Order {
 
         this.id = UUID.randomUUID();
         this.status = Status.ACCEPTED;
-        this.lastUpdatedAt = Instant.now();
+        this.createdAt = Instant.now();
         this.products = new ArrayList<>(products);
     }
 

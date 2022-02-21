@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,10 +64,12 @@ public class OrderService {
     private static class OrderDto {
 
         private final String id;
+        private final Instant createdAt;
         private final List<Map<String, Object>> products;
 
         public OrderDto(Order order) {
             id = order.getIdAsString();
+            createdAt = order.getCreatedAt();
             products = order.getProducts().stream()
                     .map(this::toDto)
                     .collect(Collectors.toList());
