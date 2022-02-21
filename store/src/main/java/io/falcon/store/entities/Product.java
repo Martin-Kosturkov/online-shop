@@ -41,4 +41,9 @@ public class Product {
         this.quantity += quantity;
         return this;
     }
+
+    public Product decreaseQuantity(Integer quantity) {
+        this.quantity -= quantity;
+        return this;
+    }
 }

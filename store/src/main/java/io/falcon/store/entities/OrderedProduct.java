@@ -1,6 +1,7 @@
 package io.falcon.store.entities;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Entity
 @Table(name = "ordered_product")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public class OrderedProduct {
 
     @Id

@@ -2,6 +2,7 @@ package io.falcon.store.entities;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,5 +49,22 @@ public class PendingOrder {
         }
 
         this.products = new ArrayList<>(products);
+    }
+
+    public List<OrderedProduct> getProducts() {
+        return List.copyOf(products);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        PendingOrder order = (PendingOrder) o;
+        return id != null && Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
