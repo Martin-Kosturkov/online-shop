@@ -1,7 +1,7 @@
 package io.falcon.store.services;
 
 import io.falcon.store.entities.Product;
-import io.falcon.store.events.ProductsLoadedEvent;
+import io.falcon.store.events.CheckProductsAvailableForPendingOrdersEvent;
 import io.falcon.store.repositories.ProductRepository;
 import io.falcon.store.repositories.projections.RequestedProduct;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class ProductService {
                 .collect(Collectors.toList());
 
         newAndUpdatedProducts = save(newAndUpdatedProducts);
-        eventPublisher.publishEvent(new ProductsLoadedEvent(newAndUpdatedProducts));
+        eventPublisher.publishEvent(new CheckProductsAvailableForPendingOrdersEvent(newAndUpdatedProducts));
 
         return newAndUpdatedProducts;
     }

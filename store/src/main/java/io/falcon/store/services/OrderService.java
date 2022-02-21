@@ -6,7 +6,7 @@ import io.falcon.store.entities.OrderedProduct;
 import io.falcon.store.entities.PendingOrder;
 import io.falcon.store.entities.Product;
 import io.falcon.store.events.CompleteOrderEvent;
-import io.falcon.store.events.ProductsLoadedEvent;
+import io.falcon.store.events.CheckProductsAvailableForPendingOrdersEvent;
 import io.falcon.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -36,21 +36,21 @@ public class OrderService {
     @KafkaListener(topics = "orders")
     public void saveNewOrder(String event) {
         var orderDto = parseEvent(event);
-        var products = mapProducts(orderDto.products);
+        var orderedProducts = mapProducts(orderDto.products);
 
-        var pendingOrder = new PendingOrder(orderDto.id, orderDto.createdAt, products);
+        var pendingOrder = new PendingOrder(orderDto.id, orderDto.createdAt, orderedProducts);
         repository.save(pendingOrder);
+
+        var products = orderedProducts.stream()
+                .map(OrderedProduct::getProduct)
+                .collect(Collectors.toList());
+
+        eventPublisher.publishEvent(new CheckProductsAvailableForPendingOrdersEvent(products));
     }
 
-    /**
-     * Check whether an order containing any of the loaded products can be completed.
-     * If yes, complete it.
-     *
-     * @param event containing products that have been loaded in store
-     */
     @Async
     @EventListener
-    public void handleProductsLoaded(ProductsLoadedEvent event) {
+    public void checkProductsAvailable(CheckProductsAvailableForPendingOrdersEvent event) {
         var productNames = event.getProducts().stream()
                 .map(Product::getName)
                 .collect(Collectors.toList());
