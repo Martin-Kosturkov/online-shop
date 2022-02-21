@@ -2,6 +2,7 @@ package io.falcon.store.services;
 
 import io.falcon.store.entities.Product;
 import io.falcon.store.repositories.ProductRepository;
+import io.falcon.store.repositories.projections.RequestedProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,5 +39,9 @@ public class ProductService {
                 .collect(Collectors.toList());
 
         return (List<Product>) repository.saveAll(newAndUpdatedProducts);
+    }
+
+    public List<RequestedProduct> getRequestedProducts() {
+        return repository.getRequestedProducts();
     }
 }

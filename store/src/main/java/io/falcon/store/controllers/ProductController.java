@@ -32,6 +32,13 @@ public class ProductController {
                 .map(ProductResponse::new);
     }
 
+    @GetMapping("/requested")
+    public List<ProductResponse> getRequestedProducts() {
+        return service.getRequestedProducts().stream()
+                .map(ProductResponse::new)
+                .collect(Collectors.toList());
+    }
+
     @PostMapping
     public List<ProductResponse> addProducts(@RequestBody @Valid List<ProductRequest> productsRequest) {
         List<Product> products = productsRequest.stream()
