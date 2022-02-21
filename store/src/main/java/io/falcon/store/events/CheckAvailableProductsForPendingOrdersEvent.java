@@ -7,11 +7,11 @@ import org.springframework.context.ApplicationEvent;
 import java.util.List;
 
 @Getter
-public class CheckProductsAvailableForPendingOrdersEvent extends ApplicationEvent {
+public class CheckAvailableProductsForPendingOrdersEvent extends ApplicationEvent {
 
     private final List<Product> products;
 
-    public CheckProductsAvailableForPendingOrdersEvent(List<Product> products) {
+    public CheckAvailableProductsForPendingOrdersEvent(List<Product> products) {
         super(products);
         this.products = products;
     }

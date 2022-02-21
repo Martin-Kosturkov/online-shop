@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.falcon.store.entities.OrderedProduct;
 import io.falcon.store.entities.PendingOrder;
-import io.falcon.store.events.CheckProductsAvailableForPendingOrdersEvent;
+import io.falcon.store.events.CheckAvailableProductsForPendingOrdersEvent;
 import io.falcon.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -37,7 +37,7 @@ public class OrderReceiver {
                 .map(OrderedProduct::getProduct)
                 .collect(Collectors.toList());
 
-        eventPublisher.publishEvent(new CheckProductsAvailableForPendingOrdersEvent(products));
+        eventPublisher.publishEvent(new CheckAvailableProductsForPendingOrdersEvent(products));
     }
 
     private List<OrderedProduct> mapProducts(List<ProductDto> products) {

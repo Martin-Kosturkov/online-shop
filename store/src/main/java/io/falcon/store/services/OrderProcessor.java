@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.falcon.store.entities.OrderedProduct;
 import io.falcon.store.entities.Product;
 import io.falcon.store.events.CompleteOrderEvent;
-import io.falcon.store.events.CheckProductsAvailableForPendingOrdersEvent;
+import io.falcon.store.events.CheckAvailableProductsForPendingOrdersEvent;
 import io.falcon.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -31,7 +31,7 @@ public class OrderProcessor {
 
     @Async
     @EventListener
-    public void checkProductsAvailable(CheckProductsAvailableForPendingOrdersEvent event) {
+    public void checkProductsAvailable(CheckAvailableProductsForPendingOrdersEvent event) {
         var productNames = event.getProducts().stream()
                 .map(Product::getName)
                 .collect(Collectors.toList());
