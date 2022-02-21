@@ -10,10 +10,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.event.EventListener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -33,6 +31,7 @@ public class OrderService {
 
     public String save(Order order) {
         order = repository.save(order);
+        eventPublisher.publishEvent(new OrderStatusChangedEvent(order));
 
         sendToStore(order);
 
@@ -52,12 +51,6 @@ public class OrderService {
                 : Order.Status.CANCELLED;
 
         setOrderStatus(order, newOrderStatus);
-    }
-
-    @Async
-    @EventListener
-    public void orderStatusChanged(OrderStatusChangedEvent event) {
-        repository.save(event.getOrder());
     }
 
     private void sendToStore(Order order) {
@@ -93,6 +86,7 @@ public class OrderService {
 
     private void setOrderStatus(Order order, Order.Status newStatus) {
         order.setStatus(newStatus);
+        repository.save(order);
         eventPublisher.publishEvent(new OrderStatusChangedEvent(order));
     }
 

@@ -61,6 +61,10 @@ public class Order {
         return List.copyOf(products);
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public void setStatus(Status status) {
         this.status = Optional.ofNullable(status)
                 .orElseThrow(() -> new IllegalArgumentException("Order status cannot be null"));
