@@ -1,7 +1,7 @@
 package io.falcon.store.controllers;
 
-import io.falcon.store.controllers.models.ProductRequest;
-import io.falcon.store.controllers.models.ProductResponse;
+import io.falcon.store.models.ProductRequest;
+import io.falcon.store.models.ProductResponse;
 import io.falcon.store.entities.Product;
 import io.falcon.store.services.ProductService;
 import lombok.RequiredArgsConstructor;

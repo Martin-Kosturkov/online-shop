@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.falcon.store.entities.OrderedProduct;
 import io.falcon.store.entities.PendingOrder;
-import io.falcon.store.entities.Product;
 import io.falcon.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
