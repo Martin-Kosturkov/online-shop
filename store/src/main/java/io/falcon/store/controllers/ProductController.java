@@ -1,8 +1,7 @@
 package io.falcon.store.controllers;
 
-import io.falcon.store.models.ProductRequest;
-import io.falcon.store.models.ProductResponse;
-import io.falcon.store.entities.Product;
+import io.falcon.store.controllers.models.ProductRequest;
+import io.falcon.store.controllers.models.ProductResponse;
 import io.falcon.store.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -41,7 +40,7 @@ public class ProductController {
 
     @PostMapping
     public List<ProductResponse> addProducts(@RequestBody @Valid List<ProductRequest> productsRequest) {
-        List<Product> products = productsRequest.stream()
+        var products = productsRequest.stream()
                 .map(ProductRequest::toEntity)
                 .collect(Collectors.toList());
 

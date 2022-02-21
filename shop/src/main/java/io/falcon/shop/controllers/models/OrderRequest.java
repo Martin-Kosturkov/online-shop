@@ -17,7 +17,7 @@ public class OrderRequest {
     private List<ProductRequest> products;
 
     public Order toEntity() {
-        List<Product> productEntities = products.stream()
+        var productEntities = products.stream()
                 .map(ProductRequest::toEntity)
                 .collect(Collectors.toList());
 

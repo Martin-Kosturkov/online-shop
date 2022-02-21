@@ -1,4 +1,4 @@
-package io.falcon.store.models;
+package io.falcon.store.controllers.models;
 
 import io.falcon.store.entities.Product;
 import lombok.Setter;

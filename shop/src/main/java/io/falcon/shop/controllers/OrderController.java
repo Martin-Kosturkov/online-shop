@@ -24,10 +24,10 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderResponse> createOrder(@RequestBody @Valid OrderRequest orderRequest) {
-        Order order = orderRequest.toEntity();
-        String orderId = orderService.save(order);
+        var order = orderRequest.toEntity();
+        var orderId = orderService.save(order);
 
-        OrderResponse response = new OrderResponse(orderId, "The order has been submitted");
+        var response = new OrderResponse(orderId, "The order has been submitted");
 
         return ResponseEntity.accepted()
                 .body(response);

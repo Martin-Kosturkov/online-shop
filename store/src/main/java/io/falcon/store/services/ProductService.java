@@ -39,7 +39,7 @@ public class ProductService {
 
     public List<Product> addProducts(List<Product> products) {
 
-        List<Product> newAndUpdatedProducts = products.stream()
+        var newAndUpdatedProducts = products.stream()
                 .map(product -> getByName(product.getName())
                         .map(existingProduct -> existingProduct.addQuantity(product.getQuantity()))
                         .orElse(product))

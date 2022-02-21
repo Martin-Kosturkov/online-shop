@@ -51,7 +51,7 @@ public class OrderProcessor {
     }
 
     private void removeProductsFromStock(List<OrderedProduct> orderedProducts) {
-        List<Product> products = orderedProducts.stream()
+        var products = orderedProducts.stream()
                 .peek(orderedProduct -> orderedProduct.getProduct().decreaseQuantity(orderedProduct.getQuantity()))
                 .map(OrderedProduct::getProduct)
                 .collect(Collectors.toList());
