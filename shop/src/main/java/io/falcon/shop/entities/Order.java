@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -60,11 +61,12 @@ public class Order {
         return List.copyOf(products);
     }
 
-    public void cancel() {
-        status = Status.CANCELLED;
+    public void setStatus(Status status) {
+        this.status = Optional.ofNullable(status)
+                .orElseThrow(() -> new IllegalArgumentException("Order status cannot be null"));
     }
 
-    private enum Status {
+    public enum Status {
         ACCEPTED,
         COMPLETED,
         CANCELLED
