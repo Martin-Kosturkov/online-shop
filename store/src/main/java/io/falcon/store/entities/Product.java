@@ -23,14 +23,18 @@ public class Product {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
+    public Product(String name) {
+        this(name, 0);
+    }
+
     public Product(String name, Integer quantity) {
         this.name = Optional.ofNullable(name)
                 .filter(Predicate.not(String::isBlank))
                 .orElseThrow(() -> new IllegalArgumentException("Product name cannot be empty"));
 
         this.quantity = Optional.ofNullable(quantity)
-                .filter(q -> q > 0)
-                .orElseThrow(() -> new IllegalArgumentException("Product quantity cannot be less or equal to 0"));
+                .filter(q -> q >= 0)
+                .orElseThrow(() -> new IllegalArgumentException("Product quantity cannot be less than 0"));
     }
 
     public Product addQuantity(Integer quantity) {
